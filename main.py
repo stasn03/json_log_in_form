@@ -27,8 +27,18 @@ def import_acc():
 
 
 def check_acc(email):
+    exist= False
     with open("accounts.json", "r") as json_file:
-        # de continuat
+        accounts= json.load(json_file)
+    
+    for acc in accounts:
+        if acc["email"] == email:
+            exist= True
+
+    if exist:
+        return True
+    else:
+        return False
 
 
 def log_in():
@@ -41,11 +51,15 @@ def sign_in():
         "password": input("Introduce your password: ")
     }
 
-    
-
     acc_json.append(account)
-    with open("accounts.json", "w") as json_file:
-        json.dump(acc_json, json_file)
+
+
+    if not check_acc(account["email"]):
+        with open("accounts.json", "w") as json_file:
+            json.dump(acc_json, json_file)
+    else:
+        print("There is already an account with this email")
+        acc_json.pop()
 
 
 def display_acc():

@@ -28,10 +28,9 @@ def import_acc():
 
 def check_acc(email):
     exist= False
-    with open("accounts.json", "r") as json_file:
-        accounts= json.load(json_file)
+    acc_json= import_acc()
     
-    for acc in accounts:
+    for acc in acc_json:
         if acc["email"] == email:
             exist= True
 

@@ -26,12 +26,12 @@ def import_acc():
     return acc_json
 
 
-def check_acc(email):
+def check_acc(username):
     exist= False
     acc_json= import_acc()
     
     for acc in acc_json:
-        if acc["email"] == email:
+        if acc["username"] == username:
             exist= True
 
     if exist:
@@ -41,23 +41,30 @@ def check_acc(email):
 
 
 def log_in():
-    print("")
+
+    username_input= input("Introduce your username: ")
+    password_input= input("Introduce your password: ")
+
+    acc_json= import_acc()
+    for i in range(len(acc_json)):
+        print(f"username: {acc_json[i]["username"]}")
+        print(f"password: {acc_json[i]["password"]}")
 
 def sign_in():
     acc_json= import_acc()
     account= {
-        "email": input("Introduce your email: "),
+        "username": input("Introduce your username: "),
         "password": input("Introduce your password: ")
     }
 
     acc_json.append(account)
 
 
-    if not check_acc(account["email"]):
+    if not check_acc(account["username"]):
         with open("accounts.json", "w") as json_file:
             json.dump(acc_json, json_file)
     else:
-        print("There is already an account with this email")
+        print("There is already an account with this username")
         acc_json.pop()
 
 

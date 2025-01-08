@@ -70,7 +70,4 @@ def sign_in():
         print("There is already an account with this username")
         acc_json.pop()
 
-
-
-
 main()
